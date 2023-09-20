@@ -93,7 +93,7 @@ function fetchWeather(location){
         method: "GET"
     }).then(function(response){
         renderCurrentWeather(city, response.list[0])
-        //renderForecast(data.list);
+        renderForecast(data.list);
     })
 
 }
@@ -132,10 +132,21 @@ function submitSearchForm(event) {
     searchInput.val("");
 }
 
+function clickSearchHistory(event){
+    if(!$(event.target).hasClass("btn-history")){
+        return
+    }
+    let search = $(event.target).attr("data-search")
+    
+    fetchCoord(search);
+    searchInput.val("")
+}
+
 
 
 initializeHistory()
 searchForm.on("submit", submitSearchForm);
+searchHistoryContainer.on("click", clickSearchHistory)
 
 
 
